@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title Privacy
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="description", content="Privacy game online")
+    meta(name="author", content="Vincent Tertre")
+    link(rel="icon", type="image/png",   href="/img/favicon.png")
+    style.
+      body {
+        padding-top: 60px;
+      }
+    link(href=revision("main", "css"), rel="stylesheet", type="text/css")
+
+  body(ng-app="app" class=clazz)
+    header
+    block content
+    footer.page-footer
+      .container
+        hr
+        p Made with <i class="love-icon" aria-hidden="true"></i> by Vincent
+    block js

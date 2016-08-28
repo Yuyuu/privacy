@@ -1,0 +1,7 @@
+extends include/layout
+block content
+  div(ui-view="" autoscroll="false" ng-strict-di="")
+
+block js
+  script(src=revision("vendor", "js"))
+  script(src=revision("main", "js"))
