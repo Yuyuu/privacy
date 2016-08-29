@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = grunt => {
   let tests = './src/js/**/*_spec.js';
   let _ = require('lodash');
 

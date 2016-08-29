@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = grunt => {
   grunt.registerTask('eslint', function () {
     grunt.util.spawn({
       cmd: './node_modules/eslint/bin/eslint.js',

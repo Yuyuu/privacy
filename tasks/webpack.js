@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = grunt => {
   let _ = require('lodash');
   let webpack = require('webpack');
 

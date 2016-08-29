@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = function (grunt) {
-  grunt.registerTask('assets', function () {
+module.exports = grunt => {
+  grunt.registerTask('assets', () => {
     grunt.task.run(['webpack']);
   });
 };

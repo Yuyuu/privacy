@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = function (grunt) {
-  grunt.registerTask('dev', function () {
-    let backgroundWatch = grunt.util.spawn({grunt: true, args: ['webpack', '--watch']}, function () {
+module.exports = grunt => {
+  grunt.registerTask('dev', () => {
+    let backgroundWatch = grunt.util.spawn({grunt: true, args: ['webpack', '--watch']}, () => {
       grunt.log.writeln('done');
     });
 
