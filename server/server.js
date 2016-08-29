@@ -3,6 +3,7 @@
 let express = require('express');
 let path = require('path');
 let serveStatic = require('serve-static');
+let morgan = require('morgan');
 let Revision = require('./revision');
 let configuration = require('./configuration');
 
@@ -17,8 +18,12 @@ class Server {
   }
 
   start() {
-    console.log(`Configuring application for environment ${this.app.get('env')}`);
+    let env = this.app.get('env');
     let port = configuration.env.serverPort;
+    console.log(`Configuring application for environment ${env}`);
+    if (env === 'development') {
+      this.app.use(morgan('combined'));
+    }
     this.app.listen(port, () => console.log(`Listening on port ${port}`));
   }
 }
