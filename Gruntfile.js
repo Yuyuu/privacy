@@ -16,6 +16,10 @@ module.exports = function (grunt) {
   grunt.registerTask('test', ['eslint', 'mocha:console']);
   grunt.registerTask('default', ['clean', 'dev']);
   grunt.registerTask('build', ['clean', 'assets']);
+  grunt.registerTask('heroku:staging', () => {
+    grunt.config.set('prod', true);
+    grunt.task.run('build');
+  });
 
   function loadConfig(path) {
     let glob = require('glob');
