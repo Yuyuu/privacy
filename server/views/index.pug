@@ -3,5 +3,6 @@ block content
   div(ui-view="" autoscroll="false" ng-strict-di="")
 
 block js
+  script(src="/socket.io/socket.io.js")
   script(src=revision("vendor", "js"))
   script(src=revision("main", "js"))

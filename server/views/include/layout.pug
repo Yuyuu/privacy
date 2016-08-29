@@ -13,7 +13,7 @@ html
       }
     link(href=revision("main", "css"), rel="stylesheet", type="text/css")
 
-  body(ng-app="app" class=clazz)
+  body(ng-app="app" class=clazz ng-controller="OrchestratorController as orchestrator")
     header
     block content
     footer.page-footer
