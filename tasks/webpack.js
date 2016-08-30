@@ -28,7 +28,7 @@ module.exports = grunt => {
   function makeConfig(prod) {
     let path = require('path'),
       ExtractTextPlugin = require('extract-text-webpack-plugin'),
-      ngAnnotatePlugin = require('ng-annotate-webpack-plugin'),
+      NgAnnotatePlugin = require('ng-annotate-webpack-plugin'),
       AssetsPlugin = require('assets-webpack-plugin');
 
 
@@ -77,10 +77,7 @@ module.exports = grunt => {
       plugins: [
         new webpack.optimize.CommonsChunkPlugin('vendor', makeName('vendor')),
         new ExtractTextPlugin(makeName('[name]', 'css')),
-        new ngAnnotatePlugin({
-          add: true
-        })
-
+        new NgAnnotatePlugin({add: true})
       ]
     };
     if (prod) {
