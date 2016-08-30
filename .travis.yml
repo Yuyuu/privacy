@@ -1,8 +1,18 @@
 language: node_js
 sudo: false
 node_js:
-  - "6"
+- '6'
 
 cache:
   directories:
-    - node_modules
+  - node_modules
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: JDTgJw3kr1Q0SlLF3dun2SkdMYsMPz5ukBkvp2t//UwHvv8WadcHh0ok76DXwDRq7BeO/i1Mock4bcZSm+slpx83TB5TaEGTRGbrX+4B7nuXgDglXjdGmH9g4e1oahI6p7//jZffk6owPHjJvlJNegPLDQ2lJSeeOUoV+fE4gnlQqYOS64MvkaMN4E/8UmD0jEi5lMOIvKpj4lRJQChHJNaKvdkEcFwEwyFH9Sy/IVDXoZswvIFrS9NG2V97TcRgQOMfE5zLbWYbv/ujsDhebMybJdKTq32O7T3eVMdti9qhbkd3+I3DStIIXV2LmzkA7wxsVAkfonAjJJGaiic0eRkbj8xq3DczO9+ALI8dqAYp9pKJcr+JCzOKIICQ6N2xNzwm3itfZNKUloCLzLcGo4+lWO26gNyGd9xus1Y4gveBYXqrHOqmvtX/3E7Km4X6b8zIL6wNiSq5uskOFI3wc2Eaj14mlQROp8RZwNlyeJjhJxXEmQIQ7L1uOQn9EuOgd7nzOQI6R3Ev+XigaWhySeG/oFzHEKk++4e9lBvux9WT1IhZ2Fa6imv6jAuuAh5X4PfhSQVUDgBCFuJiA5MoGGVYNx89e9znj9wUYXnp5Lmodvie+AntWfJVcOM3OR0IXVjtEMvAl1f7Bo3fh4mfZ7dCFio2Sc3X2jqe4UgnWwM=
+  strategy: api
+    app: privacy
+    on:
+      repo: Yuyuu/privacy
+      branch: master
