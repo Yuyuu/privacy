@@ -1,6 +1,7 @@
 'use strict';
 
 let express = require('express');
+let expressSession = require('express-session');
 let http = require('http');
 let path = require('path');
 let serveStatic = require('serve-static');
@@ -15,9 +16,16 @@ class Server {
     this.app.set('views', path.join(__dirname, 'views'));
     this.app.set('view engine', 'pug');
     this.app.use(serveStatic(path.join(__dirname, 'public')));
+    let session = expressSession({
+      secret: configuration.env.sessionCookieSecret,
+      resave: false,
+      saveUninitialized: false,
+      unset: 'destroy'
+    });
+    this.app.use(session);
     require('./routes')(this.app);
     new Revision(path.join(__dirname, 'public', 'app', 'map.json'), 'app').register(this.app);
-    require('./io')(this.httpServer);
+    require('./io')(this.httpServer, session);
   }
 
   start() {

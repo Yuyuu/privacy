@@ -1,0 +1,24 @@
+.modal-header
+  button.close(type="button" aria-label="Close" ng-click="vm.cancel()")
+    span(aria-hidden="true") &times;
+  h4.modal-title Creating a room
+form.form-horizontal(ng-submit="vm.create(vm.room, vm.username)")
+  .modal-body
+    .container-fluid
+      .row
+        .col-xs-12
+          .form-group
+            label.control-label.col-sm-5(for="roomName") Room name
+            .col-sm-6
+              input#roomName.form-control(type="text" name="roomName" ng-model="vm.room.name"
+                  placeholder="e.g. Cool Room" required="")
+          .form-group
+            label.control-label.col-sm-5(for="username") Username
+            .col-sm-6
+              input#username.form-control(type="text" name="username" ng-model="vm.username"
+                  placeholder="e.g. Kim" required="")
+  .modal-footer
+    button.btn.btn-default.btn-sm(type="button" ng-click="vm.cancel()") Cancel
+    button.btn.btn-primary.btn-sm(type="submit")
+      i.fa.fa-check
+      | Create the room

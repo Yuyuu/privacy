@@ -1,0 +1,31 @@
+main
+  section
+    .jumbotron.text-center
+      .container
+        i.fa.fa-user-secret.jumbotron-icon(aria-hidden="true")
+  section
+    .container
+      .row
+        .col-sm-6.col-sm-offset-3
+          .text-center
+            .row
+              .col-sm-6.col-sm-offset-3
+                button.btn.btn-primary(type="button" ng-click="landing.createRoom()")
+                  i.fa.fa-plus-square-o(aria-hidden="true")
+                  | Create a room
+            .row
+              .col-xs-12
+                .form-divider
+                  span or
+            .row
+              form(role="form" name="join" ng-submit="landing.joinRoom(landing.roomId)")
+                .form-group.col-md-4.col-sm-6
+                  input#room.form-control(type="text" name="roomId" ng-model="landing.roomId"
+                      placeholder="Room ID" required="true")
+                .form-group.col-md-4.col-sm-6
+                  input#username.form-control(type="text" name="playerName" ng-model="landing.username"
+                      placeholder="Username" required="true")
+                .form-group.col-md-4.col-md-offset-0.col-sm-6.col-sm-offset-3
+                  button.btn.btn-primary.btn-block(type="submit")
+                    i.fa.fa-sign-in(aria-hidden="true")
+                    | Join a room

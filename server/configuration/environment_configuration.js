@@ -7,6 +7,11 @@ let appConfig = config({
     env: 'PORT',
     type: 'integer',
     default: 5000
+  },
+  sessionCookieSecret: {
+    env: 'SESSION_COOKIE_SECRET',
+    type: 'string',
+    default: 'secret'
   }
 });
 

@@ -1,0 +1,4 @@
+h1(ng-bind="::vm.room.name")
+.container
+  ul
+    li(ng-repeat="player in vm.room.players" ng-bind="::player.username")

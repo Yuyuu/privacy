@@ -1,17 +1,16 @@
+import sinon from 'sinon';
 import RoomController from './room_controller';
 
 describe('The room controller', () => {
-  let controller;
+  let roomService, room, controller;
 
   beforeEach(() => {
-    controller = new RoomController();
+    roomService = {joinRoom: sinon.stub()};
+    roomService.joinRoom.resolves({room: {players: []}});
+    controller = new RoomController(roomService, room);
   });
 
   it('should be defined', () => {
     controller.should.be.defined;
-  });
-
-  it('should have a default room name', () => {
-    controller.roomName.should.equal('The name of the room');
   });
 });
