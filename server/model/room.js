@@ -13,6 +13,10 @@ Room.prototype.add = function (player) {
   this.players.push(player);
 };
 
+Room.prototype.isEmpty = function () {
+  return this.players.length === 0;
+};
+
 Room.prototype.remove = function (playerToRemove) {
   _.remove(this.players, player => player.id === playerToRemove.id);
 };
