@@ -1,9 +1,9 @@
 'use strict';
 
-let uuid = require('node-uuid');
+let shortId = require('shortid');
 
 function Player(username, socketId) {
-  this.id = uuid.v4();
+  this.id = shortId.generate();
   this.socketId = socketId;
   this.username = username;
   this.score = 0;

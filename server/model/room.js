@@ -1,10 +1,10 @@
 'use strict';
 
 let _ = require('lodash');
-let uuid = require('node-uuid');
+let shortId = require('shortid');
 
 function Room(name) {
-  this.id = uuid.v4();
+  this.id = shortId.generate();
   this.name = name;
   this.players = [];
 }
