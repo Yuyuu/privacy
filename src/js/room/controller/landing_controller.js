@@ -24,7 +24,7 @@ export default class LandingController {
   }
 
   joinRoom(roomId) {
-    this._playerService.username = this.username;
+    this._playerService.player = {username: this.username};
     this._$state.go('room', {'id': roomId});
   }
 }

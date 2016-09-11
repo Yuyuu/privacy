@@ -35,25 +35,25 @@ export default function () {
 
 function onEnter($stateParams, roomService, playerService, $modal, $q) {
   return ensureUsernameIsDefined(playerService, $modal, $q)
-    .then(() => roomService.joinRoom({
+    .then(username => roomService.joinRoom({
       roomId: $stateParams.id,
-      username: playerService.username
+      username: username
     }))
-    .then(result => result.room);
+    .then(result => {
+      playerService.player = result.player;
+      return result.room;
+    });
 }
 
 function ensureUsernameIsDefined(playerService, $modal, $q) {
-  if (!playerService.username) {
+  if (!playerService.player) {
     let modalInstance = $modal.open({
       templateUrl: '/templates/player/username',
       controller: 'DefineUsernameController',
       controllerAs: 'vm',
       backdrop: 'static'
     });
-    return modalInstance.result
-      .then(username => {
-        playerService.username = username;
-      });
+    return modalInstance.result;
   }
-  return $q.resolve();
+  return $q.resolve(playerService.player.username);
 }
