@@ -23,17 +23,22 @@
   }
 }
 
+.player-message,
+.system-message {
+  display: inline;
+}
+
+.system-message {
+  color: @brand-info;
+  font-style: italic;
+  font-size: @font-size-small;
+}
+
 .message-sender {
   font-weight: bold;
   margin-right: 5px;
 
   &:after {
     content: ":";
-  }
-}
-
-.write-box {
-  textarea {
-    resize: none;
   }
 }

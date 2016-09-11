@@ -3,8 +3,9 @@
     .chat-box
       .message-box(scroll-glue="")
         .chat-message(ng-repeat="message in chatvm.messages")
-          span.message-sender(ng-bind="::message.sender")
-          span.message-content(ng-bind="::message.content")
+          div(ng-class="::{'player-message': message.sender, 'system-message': !message.sender}")
+            span.message-sender(ng-if="::message.sender" ng-bind="::message.sender")
+            span.message-content(ng-bind="::message.content")
       .write-box
         form(role="form" name="messageForm" ng-submit="chatvm.send(chatvm.message)")
           input.form-control(type="text" placeholder="Send a message" ng-model="chatvm.message")
