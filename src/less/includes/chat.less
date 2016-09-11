@@ -1,0 +1,39 @@
+.chat-zone {
+  .make-xs-column(12);
+}
+
+.chat-box {
+
+}
+
+.message-box {
+  height: 30em;
+  overflow-y: scroll;
+  padding: 1em;
+  margin-bottom: 0.5em;
+  background-color: #fff;
+  border-radius: @border-radius-base;
+}
+
+.chat-message {
+  overflow-wrap: break-word;
+
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+}
+
+.message-sender {
+  font-weight: bold;
+  margin-right: 5px;
+
+  &:after {
+    content: ":";
+  }
+}
+
+.write-box {
+  textarea {
+    resize: none;
+  }
+}

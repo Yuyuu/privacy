@@ -1,4 +1,11 @@
-h1(ng-bind="::vm.room.name")
+.room-header
+  .container
+    h1 {{::vm.room.name}} <small>ID: {{::vm.room.id}}</small>
 .container
-  ul
-    li(ng-repeat="player in vm.room.players" ng-bind="::player.username")
+  .row
+    .layout-aside-left
+      include includes/scoreboard
+    .layout-content
+      include includes/board
+    .layout-aside-right
+      include includes/chat

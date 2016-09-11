@@ -1,6 +1,6 @@
 let sinon = require('sinon');
 
-import SocketFactory from './socket_service';
+import SocketFactory from './socket_factory';
 
 describe('The socket factory', () => {
   let socketFactory, factory;

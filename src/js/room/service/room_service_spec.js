@@ -3,11 +3,12 @@ import RoomService from './room_service';
 import SocketEvents from '../../socket/events';
 
 describe('The room service', () => {
-  let socket, service;
+  let socketService, chatService, service;
 
   beforeEach(() => {
-    socket = {on: sinon.spy()};
-    service = new RoomService({}, socket, SocketEvents);
+    socketService = {on: sinon.spy()};
+    chatService = {};
+    service = new RoomService(socketService, SocketEvents, chatService);
   });
 
   it('should be defined', () => {

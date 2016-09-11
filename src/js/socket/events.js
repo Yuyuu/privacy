@@ -4,5 +4,8 @@ export default {
     LEAVE: 'pv:room:leave',
     NEW_PLAYER: 'pv:room:newplayer',
     PLAYER_LEFT: 'pv:room:playerleft'
+  },
+  CHAT: {
+    NEW_MESSAGE: 'pv:chat:newmessage'
   }
 };
