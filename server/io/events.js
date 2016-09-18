@@ -13,5 +13,20 @@ module.exports = {
   },
   CHAT: {
     NEW_MESSAGE: 'pv:chat:newmessage'
+  },
+  GAME: {
+    START: 'pv:game:start',
+    STARTED: 'pv:game:started',
+    TURN_OVER: 'pv:game:turnover',
+    NEXT_TURN: 'pv:game:nextturn'
+  },
+  QUESTION: {
+    SETUP: 'pv:question:setup',
+    DEFINED: 'pv:question:defined',
+    START: 'pv:question:start',
+  },
+  ANSWER: {
+    SAVE: 'pv:answer:save',
+    GIVEN: 'pv:answer:given',
   }
 };

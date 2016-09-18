@@ -1,0 +1,51 @@
+.spinner {
+  width: 70px;
+  text-align: center;
+  margin: 0 auto;
+
+  & > div {
+    width: 18px;
+    height: 18px;
+    background-color: @brand-primary;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: bounce 1.4s infinite ease-in-out;
+    animation: bounce 1.4s infinite ease-in-out;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+
+  & .first-bouncer {
+    -webkit-animation-delay: -.32s;
+    animation-delay: -.32s;
+  }
+
+  & .second-bouncer {
+    margin-left: 5px;
+    margin-right: 5px;
+    -webkit-animation-delay: -.16s;
+    animation-delay: -.16s;
+  }
+}
+
+@-webkit-keyframes bounce {
+  0%, 100%, 80% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce {
+  0%, 100%, 80% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
