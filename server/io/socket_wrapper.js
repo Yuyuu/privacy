@@ -84,7 +84,7 @@ class SocketWrapper {
       callback({success: true});
       socket.broadcast.to(room.id).emit(EVENTS.ANSWER.GIVEN, player);
       if (room.turnIsOver()) {
-        this._io.to(room.id).emit(EVENTS.GAME.TURN_OVER, room.question.results());
+        this._io.to(room.id).emit(EVENTS.GAME.TURN_OVER, room.questionResults());
         room.endTurn();
       }
     });

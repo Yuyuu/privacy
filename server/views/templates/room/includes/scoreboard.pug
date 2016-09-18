@@ -1,10 +1,15 @@
-.table-responsive
-  table.table.table-condensed
-    thead
-      tr
-        th Player
-        th Score
-    tbody
-      tr(ng-repeat="player in vm.room.players | orderBy:player.score")
-        th(scope="row" ng-bind="::player.username")
-        td(ng-bind="player.score")
+.row
+  .score-zone(ng-controller="ScoreController as scorevm")
+    .table-responsive(ng-if="!scorevm.gameStarted")
+      ul.list-group
+        li.list-group-item(ng-repeat="player in vm.room.players track by player.id" ng-bind="::player.username")
+    .table-responsive(ng-show="scorevm.gameStarted")
+      table.table.table-condensed
+        thead
+          tr
+            th Player
+            th Score
+        tbody
+          tr(ng-repeat="scoreData in scorevm.scores | orderBy:'score':true track by scoreData.playerId")
+            th(scope="row" ng-bind="::scoreData.username")
+            td(ng-bind="scoreData.score")

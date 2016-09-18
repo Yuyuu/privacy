@@ -6,7 +6,7 @@ export default class ChatService {
     this._SocketEvents = SocketEvents;
     this._socketService = socketService;
 
-    this._setUpEventListeners();
+    this._setupEventListeners();
   }
 
   clearMessages() {
@@ -18,7 +18,7 @@ export default class ChatService {
       .then(result => this.messages.push(result.messageData));
   }
 
-  _setUpEventListeners() {
+  _setupEventListeners() {
     this._socketService.on(this._SocketEvents.CHAT.NEW_MESSAGE, messageData => {
       this.messages.push(messageData);
     });

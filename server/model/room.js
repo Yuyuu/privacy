@@ -19,6 +19,13 @@ Room.prototype.add = function (player) {
   this.players.push(player);
 };
 
+Room.prototype.questionResults = function () {
+  if (!this.question) {
+    throw new Error('No question is defined for the room');
+  }
+  return this.question.results();
+};
+
 Room.prototype.define = function (question) {
   this.question = new Question(question, this.players);
 };
@@ -32,13 +39,13 @@ Room.prototype.isEmpty = function () {
   return this.players.length === 0;
 };
 
-Room.prototype.remove = function (playerToRemove) {
-  _.remove(this.players, player => player.id === playerToRemove.id);
-};
-
 Room.prototype.playerSelectedForNextQuestion = function () {
   let nextPlayerIndex = (this.turn - 1) % this.players.length;
   return this.players[nextPlayerIndex];
+};
+
+Room.prototype.remove = function (playerToRemove) {
+  _.remove(this.players, player => player.id === playerToRemove.id);
 };
 
 Room.prototype.startTurn = function () {

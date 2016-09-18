@@ -9,7 +9,7 @@ export default class RoomService {
     this._socketService = socketService;
     this._stateService = stateService;
 
-    this._setUpEventListeners();
+    this._setupEventListeners();
   }
 
   joinRoom(configuration) {
@@ -27,7 +27,7 @@ export default class RoomService {
     });
   }
 
-  _setUpEventListeners() {
+  _setupEventListeners() {
     this._socketService.on(this._SocketEvents.ROOM.NEW_PLAYER, player => {
       this.room.players.push(player);
     });

@@ -10,7 +10,7 @@ export default class BoardService {
     this._socketService = socketService;
     this._stateService = stateService;
 
-    this._setUpEventListeners();
+    this._setupEventListeners();
   }
 
   answer(data) {
@@ -30,7 +30,7 @@ export default class BoardService {
     return this._socketService.promisifyEmit(this._SocketEvents.GAME.NEXT_TURN);
   }
 
-  _setUpEventListeners() {
+  _setupEventListeners() {
     this._socketService.on(this._SocketEvents.QUESTION.SETUP, player => {
       this.question = null;
       this.waitingPlayersIds = [];
