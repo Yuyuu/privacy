@@ -51,7 +51,7 @@ class SocketWrapper {
         room.started = true;
         room.startTurn();
         callback({success: true});
-        this._io.to(room.id).emit(EVENTS.GAME.STARTED);
+        this._io.to(room.id).emit(EVENTS.GAME.STARTED, room);
         this._io.to(room.id).emit(EVENTS.QUESTION.SETUP, room.playerSelectedForNextQuestion());
       } else {
         callback({success: false});
