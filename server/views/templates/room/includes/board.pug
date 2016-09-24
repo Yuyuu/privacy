@@ -1,7 +1,10 @@
 section(ng-controller="BoardController as boardvm")
   .row
     .board.col-xs-12
-      pv-loading-spinner(ng-show="boardvm.loading")
+      .loading-zone(ng-show="boardvm.loading")
+        .alert.alert-info(role="alert")
+          pv-loading-spinner
+          | {{boardvm.loadingMessage}}
       div(ng-if="!boardvm.isGameStarted")
         .alert.alert-info(role="alert")
           | Waiting for other players to join the room.<br>
@@ -9,37 +12,47 @@ section(ng-controller="BoardController as boardvm")
         button.btn.btn-success.btn-block.btn-lg(type="button" ng-click="boardvm.startGame()") Start the game
       div(ng-if="boardvm.isGameStarted")
         .question-form(ng-show="boardvm.showQuestionForm")
+          .alert.alert-info(role="alert") Other players are waiting for you to choose a question!
           form(role="form" name="questionForm" ng-submit="boardvm.define(boardvm.question)")
             .form-group
               input.form-control.input-lg(type="text" placeholder="Type your yes/no question"
                   ng-model="boardvm.question")
             button.btn.btn-success.btn-block.btn-lg(type="submit") Define question
-        .question-zone(ng-show="boardvm.showQuestion")
-          .question
-            p(ng-bind="boardvm.nextQuestion")
-          .results
-            .table-responsive
-              table.table.table-condensed
-                thead
-                  tr
-                    th Player
-                    th Yes Count Guess
-                    th OK
-                tbody
-                  tr(ng-repeat="player in vm.room.players" ng-class="{info: boardvm.hasAnswered(player.id)}")
-                    th(scope="row" ng-bind="::player.username")
-                    td(ng-bind="boardvm.results[player.id].yesCountGuess")
-                    td(ng-bind="boardvm.results[player.id].correct")
-        .player-recap(ng-show="boardvm.showPlayerRecap")
-          span(ng-bind-template="Answer: {{::boardvm.answerRecap}} || Guess: {{::boardvm.yesCountGuessRecap}}")
-        .answer-form(ng-show="boardvm.showAnswerForm")
-          form(role="form" name="answerForm")
-            .form-group
-              select.form-control(name="yesCountGuess" ng-model="boardvm.yesCountGuess" required=""
-                  ng-options="number for number in [] | pvRange:0:vm.room.players.length")
-            .form-group
-              button.btn.btn-lg(type="submit" ng-click="boardvm.answer('YES', boardvm.yesCountGuess)") YES
-              button.btn.btn-lg(type="submit" ng-click="boardvm.answer('NO', boardvm.yesCountGuess)") NO
+        .question-zone
+          .question(ng-show="boardvm.showQuestion" ng-bind="boardvm.nextQuestion")
+          .answer-form(ng-show="boardvm.showAnswerForm")
+            form(role="form" name="boardvm.answerForm")
+              .form-group
+                select.form-control(name="yesCountGuess" ng-model="boardvm.yesCountGuess"
+                    ng-options="number for number in [] | pvRange:0:vm.room.players.length" required="")
+                  option(value="" disabled="" selected="") #YES Guess
+                .help-block Including yourself, try to guess how many players will answer YES
+              .answer-buttons
+                .btn-o-success(role="button" ng-click="boardvm.submitAnswer('YES', boardvm.yesCountGuess)"
+                    ng-disabled="boardvm.answerForm.$invalid")
+                  .btn-o-content YES
+                .btn-o-danger(role="button" ng-click="boardvm.submitAnswer('NO', boardvm.yesCountGuess)"
+                    ng-disabled="boardvm.answerForm.$invalid")
+                  .btn-o-content NO
+          .player-recap.row(ng-show="boardvm.showPlayerRecap")
+            .col-xs-6 Answer: {{boardvm.answerRecap}}
+            .col-xs-6 #YES Guess: {{boardvm.yesCountGuessRecap}}
+          .results.panel.panel-primary(ng-show="boardvm.showQuestion")
+            .panel-heading Results
+            .panel-body.final-answer(ng-show="boardvm.results") Right guess: {{boardvm.results.yesCount}}
+            table.table.table-condensed
+              thead
+                tr
+                  th Player
+                  th #YES Guess
+                  th
+              tbody
+                tr(ng-repeat="player in vm.room.players" ng-class="{info: boardvm.hasAnswered(player.id)}")
+                  th(scope="row" ng-bind="::player.username")
+                  td(ng-bind="boardvm.results.details[player.id].yesCountGuess")
+                  td
+                    i.fa(aria-hidden="true" ng-show="boardvm.results"
+                    pv-validation-icon="boardvm.results.details[player.id].correct")
         button.btn.btn-success.btn-block.btn-lg(type="button" ng-show="boardvm.showNextTurn"
             ng-click="boardvm.startNextTurn()")
           | Start next turn

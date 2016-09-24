@@ -1,0 +1,26 @@
+.btn-o(@color: @brand-primary) {
+  display: inline-block;
+  width: 90px;
+  height: 90px;
+  z-index: 0;
+  margin: 0.5em;
+  border: 2px solid @color;
+  border-radius: 100%;
+  font-size: 1.4em;
+  color: @color;
+  background-color: fade(@color, 24%);
+  text-align: center;
+  transition: background .3s;
+  -webkit-user-select: none;
+
+  &:not([disabled]):hover {
+    background-color: fade(@color, 36%);
+  }
+
+  &.disabled,
+  &[disabled] {
+    cursor: @cursor-disabled;
+    .opacity(.65);
+    .box-shadow(none);
+  }
+}

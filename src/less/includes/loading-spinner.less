@@ -1,7 +1,7 @@
 .spinner {
   width: 70px;
   text-align: center;
-  margin: 0 auto;
+  margin: 0.5em auto;
 
   & > div {
     width: 18px;
@@ -13,6 +13,17 @@
     animation: bounce 1.4s infinite ease-in-out;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
+  }
+
+  .alert & {
+    position: absolute;
+    top: -15px;
+    left: 30px;
+
+    & > div {
+      width: 13px;
+      height: 13px;
+    }
   }
 
   & .first-bouncer {

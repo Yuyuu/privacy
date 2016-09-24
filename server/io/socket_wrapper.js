@@ -79,7 +79,7 @@ class SocketWrapper {
     socket.on(EVENTS.ANSWER.SAVE, (data, callback) => {
       let room = socket.handshake.session.room;
       let player = socket.handshake.session.player;
-      let answer = new Answer(data.value, data.yesCountGuess);
+      let answer = new Answer(data.answer, data.yesCountGuess);
       room.question.answer(player, answer);
       callback({success: true});
       socket.broadcast.to(room.id).emit(EVENTS.ANSWER.GIVEN, player);

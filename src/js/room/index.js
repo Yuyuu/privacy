@@ -13,6 +13,7 @@ import LandingController from './controller/landing_controller';
 import CreateRoomController from './controller/create_room_controller';
 import RoomController from './controller/room_controller';
 import BoardController from './controller/board_controller';
+import ValidationIconDirective from './directive/validation_icon_directive';
 import RangeFilter from './filter/range_filter';
 
 let roomModule = angular.module('app.room', [core, socket, player, chat, score])
@@ -23,6 +24,7 @@ let roomModule = angular.module('app.room', [core, socket, player, chat, score])
   .controller('CreateRoomController', CreateRoomController)
   .controller('RoomController', RoomController)
   .controller('BoardController', BoardController)
+  .directive('pvValidationIcon', ValidationIconDirective)
   .filter('pvRange', RangeFilter);
 
 configureModuleRouting();

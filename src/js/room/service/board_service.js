@@ -13,7 +13,7 @@ export default class BoardService {
     this._setupEventListeners();
   }
 
-  answer(data) {
+  submitAnswer(data) {
     return this._socketService.promisifyEmit(this._SocketEvents.ANSWER.SAVE, data)
       .then(() => this.waitingPlayersIds.push(this._playerService.player.id));
   }

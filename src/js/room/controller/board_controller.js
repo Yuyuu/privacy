@@ -7,9 +7,10 @@ export default class BoardController {
     this._stateService = stateService;
   }
 
-  answer(value, yesCountGuess) {
-    this._boardService.answer({value, yesCountGuess}).then(() => {
-      this.answerRecap = value;
+  submitAnswer(answer, yesCountGuess) {
+    this._boardService.submitAnswer({answer, yesCountGuess}).then(() => {
+      this.answerRecap = answer;
+      this.answer = null;
       this.yesCountGuessRecap = yesCountGuess;
       this.yesCountGuess = null;
     });
@@ -46,6 +47,15 @@ export default class BoardController {
     return (this._stateService.state === this._AppStates.WAITING_FOR_PLAYER_SELECTION ||
       this._stateService.state === this._AppStates.WAITING_FOR_QUESTION_DEFINITION) &&
       !this.isUserSelectedForNextQuestion;
+  }
+
+  get loadingMessage() {
+    if (this._stateService.state === this._AppStates.WAITING_FOR_PLAYER_SELECTION) {
+      return 'Selecting next player choosing a question...';
+    } else if (this._stateService.state === this._AppStates.WAITING_FOR_QUESTION_DEFINITION) {
+      return `It's ${this.playerSelectedForNextQuestion.username}'s turn to choose a question.`;
+    }
+    return '';
   }
 
   get nextQuestion() {

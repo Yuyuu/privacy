@@ -25,9 +25,9 @@ Question.prototype.hasCollectedAllAnswers = function () {
 
 Question.prototype.results = function () {
   let yesCount = _.reduce(this.answers, (sum, answer) => sum + (answer.value === 'YES' ? 1 : 0), 0);
-  let results = {};
+  let results = {yesCount, details: {}};
   _.forEach(this.players, player => {
-    results[player.id] = {
+    results.details[player.id] = {
       yesCountGuess: this.answers[player.id].yesCountGuess,
       correct: this.answers[player.id].yesCountGuess === yesCount
     };
