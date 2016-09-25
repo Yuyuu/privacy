@@ -1,3 +1,7 @@
+.btn-primary-inverse {
+  .button-variant(#fff, @dark-brand-primary, darken(@dark-brand-primary, 5%));
+}
+
 .btn-o-success {
   .btn-o(@brand-success);
 }
@@ -9,6 +13,20 @@
 .btn-o-content {
   position: relative;
   top: 35%;
+}
+
+.btn-huge {
+  text-align: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1.4;
+
+  &.btn-block {
+    border-radius: 8px;
+  }
 }
 
 .btn > i {

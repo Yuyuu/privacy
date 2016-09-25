@@ -1,30 +1,17 @@
 export default class LandingController {
   /* @ngInject */
-  constructor($state, Rooms, $modal, playerService) {
-    this._$modal = $modal;
+  constructor($state, Rooms, playerService) {
     this._playerService = playerService;
     this._Rooms = Rooms;
     this._$state = $state;
-
-    this._createRoomModalConfiguration = {
-      templateUrl: '/templates/room/create',
-      controller: 'CreateRoomController',
-      controllerAs: 'vm'
-    };
   }
 
-  createRoom() {
-    let modalInstance = this._$modal.open(this._createRoomModalConfiguration);
-    return modalInstance.result
-      .then(configuration => {
-        this.username = configuration.username;
-        return this._Rooms.create(configuration.room);
-      })
-      .then(room => this.joinRoom(room.id));
+  createRoom(roomId, username) {
+    return this._Rooms.create({name: roomId}).then(room => this.joinRoom(room.id, username));
   }
 
-  joinRoom(roomId) {
-    this._playerService.player = {username: this.username};
+  joinRoom(roomId, username) {
+    this._playerService.player = {username};
     this._$state.go('room', {'id': roomId});
   }
 }

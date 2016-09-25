@@ -13,11 +13,12 @@ html
       }
     link(href=revision("main", "css"), rel="stylesheet", type="text/css")
 
-  body(ng-app="app" class=clazz ng-controller="OrchestratorController as orchestrator")
-    header
-    block content
-    footer.page-footer
-      .container
-        hr
-        p Made with <i class="love-icon" aria-hidden="true"></i> by Vincent
+  body(ng-app="app" ng-controller="OrchestratorController as orchestrator" ng-cloak="" ng-class="orchestrator.isIndex ? 'home' : 'room'")
+    .wrapper
+      header
+      block content
+      footer.page-footer
+        .container
+          hr
+          p Made with <i class="love-icon" aria-hidden="true"></i> by Vincent
     block js

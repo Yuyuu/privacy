@@ -10,7 +10,6 @@ import RoomsResource from './resource/rooms_resource';
 import RoomService from './service/room_service';
 import BoardService from './service/board_service';
 import LandingController from './controller/landing_controller';
-import CreateRoomController from './controller/create_room_controller';
 import RoomController from './controller/room_controller';
 import BoardController from './controller/board_controller';
 import ValidationIconDirective from './directive/validation_icon_directive';
@@ -21,7 +20,6 @@ let roomModule = angular.module('app.room', [core, socket, player, chat, score])
   .service('roomService', RoomService)
   .service('boardService', BoardService)
   .controller('LandingController', LandingController)
-  .controller('CreateRoomController', CreateRoomController)
   .controller('RoomController', RoomController)
   .controller('BoardController', BoardController)
   .directive('pvValidationIcon', ValidationIconDirective)
