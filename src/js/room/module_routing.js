@@ -48,7 +48,7 @@ function onEnter($stateParams, roomService, playerService, $modal, $q) {
 function ensureUsernameIsDefined(playerService, $modal, $q) {
   if (!playerService.player) {
     let modalInstance = $modal.open({
-      templateUrl: '/templates/player/username',
+      templateUrl: 'defineUsername.html',
       controller: 'DefineUsernameController',
       controllerAs: 'vm',
       backdrop: 'static'
