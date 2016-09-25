@@ -9,15 +9,15 @@ section(ng-controller="BoardController as boardvm")
         .alert.alert-info(role="alert")
           | Waiting for other players to join the room.<br>
           | Once the game is started new players <b>will not</b> be able to join.
-        button.btn.btn-success.btn-block.btn-lg(type="button" ng-click="boardvm.startGame()") Start the game
+        button.btn.btn-success.btn-block(type="button" ng-click="boardvm.startGame()") Start the game
       div(ng-if="boardvm.isGameStarted")
         .question-form(ng-show="boardvm.showQuestionForm")
           .alert.alert-info(role="alert") Other players are waiting for you to choose a question!
           form(role="form" name="questionForm" ng-submit="boardvm.define(boardvm.question)")
             .form-group
               input.form-control.input-lg(type="text" placeholder="Type your yes/no question"
-                  ng-model="boardvm.question")
-            button.btn.btn-success.btn-block.btn-lg(type="submit") Define question
+                  ng-model="boardvm.question" required="")
+            button.btn.btn-success.btn-block(type="submit") Define question
         .question-zone
           .question(ng-show="boardvm.showQuestion" ng-bind="boardvm.nextQuestion")
           .answer-form(ng-show="boardvm.showAnswerForm")
@@ -28,10 +28,10 @@ section(ng-controller="BoardController as boardvm")
                   option(value="" disabled="" selected="") #YES Guess
                 .help-block Including yourself, try to guess how many players will answer YES
               .answer-buttons
-                .btn-o-success(role="button" ng-click="boardvm.submitAnswer('YES', boardvm.yesCountGuess)"
+                .btn-o(role="button" ng-click="boardvm.submitAnswer('YES', boardvm.yesCountGuess)"
                     ng-disabled="boardvm.answerForm.$invalid")
                   .btn-o-content YES
-                .btn-o-danger(role="button" ng-click="boardvm.submitAnswer('NO', boardvm.yesCountGuess)"
+                .btn-o(role="button" ng-click="boardvm.submitAnswer('NO', boardvm.yesCountGuess)"
                     ng-disabled="boardvm.answerForm.$invalid")
                   .btn-o-content NO
           .player-recap.row(ng-show="boardvm.showPlayerRecap")
@@ -53,6 +53,6 @@ section(ng-controller="BoardController as boardvm")
                   td
                     i.fa(aria-hidden="true" ng-show="boardvm.results"
                     pv-validation-icon="boardvm.results.details[player.id].correct")
-        button.btn.btn-success.btn-block.btn-lg(type="button" ng-show="boardvm.showNextTurn"
+        button.btn.btn-success.btn-block(type="button" ng-show="boardvm.showNextTurn"
             ng-click="boardvm.startNextTurn()")
           | Start next turn

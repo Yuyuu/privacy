@@ -17,7 +17,7 @@ export default class BoardController {
   }
 
   define(question) {
-    this._boardService.define(question).then(() => {
+    question && this._boardService.define(question).then(() => {
       this.question = '';
     });
   }
