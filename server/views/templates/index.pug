@@ -21,8 +21,10 @@ main
               .col-sm-6
                 button.btn.btn-primary-inverse.btn-huge.btn-block(type="button"
                     ng-click="landing.createRoom(landing.roomId, landing.username)" ng-disabled="landing.join.$invalid")
-                  | Create a room
+                  i.fa.fa-plus-square-o(aria-hidden="true")
+                  | Create the room
               .col-sm-6
                 button.btn.btn-primary-inverse.btn-huge.btn-block(type="submit"
                     ng-click="landing.joinRoom(landing.roomId, landing.username)" ng-disabled="landing.join.$invalid")
-                  | Join a room
+                  i.fa.fa-sign-in(aria-hidden="true")
+                  | Join the room
