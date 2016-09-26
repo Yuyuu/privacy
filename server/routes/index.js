@@ -7,4 +7,5 @@ module.exports = (app) => {
   app.get(/\/templates\/(.*)/, require('./templates').serve);
   app.post('/rooms', bodyParser.json(), require('./room').create);
   app.get('/rooms/:id', require('./room').get);
+  app.get('*', (request, response) => response.redirect('/#/404'));
 };

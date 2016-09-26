@@ -38,12 +38,12 @@ describe('The rest service', () => {
   it('should reject with data', () => {
     $http.get
       .withArgs('/uri/to/resource', {})
-      .rejects({data: [{message: 'argh'}]});
+      .rejects({status: 404, data: [{message: 'argh'}]});
 
     let getCall = service.get('/uri/to/resource');
 
     getCall.should.be.rejected.then(rejection => {
-      rejection.should.deep.equal([{message: 'argh'}]);
+      rejection.should.deep.equal({status: 404, data: [{message: 'argh'}]});
     });
   });
 

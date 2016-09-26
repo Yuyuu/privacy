@@ -28,6 +28,6 @@ export default class RestService {
   _extractData(httpPromise) {
     return httpPromise
       .then(response => response.data)
-      .catch(response => this._$q.reject(response.data));
+      .catch(error => this._$q.reject(error));
   }
 }

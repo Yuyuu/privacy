@@ -6,6 +6,6 @@ export default class OrchestratorController {
   }
 
   get isIndex() {
-    return this._$state.is('index');
+    return this._$state.is('index') || this._$state.includes('error') || this._$state.includes('404');
   }
 }

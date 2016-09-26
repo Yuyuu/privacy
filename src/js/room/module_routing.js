@@ -19,10 +19,12 @@ export default function () {
         templateUrl: '/templates/room/index',
         resolve: {
           /* @ngInject */
-          room: ($stateParams, Rooms, roomService) => Rooms.get($stateParams.id).then(room => {
-            roomService.room = room;
-            return room;
-          })
+          room: ($stateParams, Rooms, roomService, $q) => Rooms.get($stateParams.id)
+            .then(room => {
+              roomService.room = room;
+              return room;
+            })
+            .catch(error => $q.reject(error))
         },
         /* @ngInject */
         onEnter: onEnter,
