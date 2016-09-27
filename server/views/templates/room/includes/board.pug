@@ -18,7 +18,7 @@ section(ng-controller="BoardController as boardvm")
             | <b>OUI</b> ou par <b>NON</b>.<br><br>
             | Exemples :<br><ul>
             | <li>Je pense que gPartner a un très bel avenir</li>
-            | <li>Pensez-vous que gPartner ait un très bel avenir ?</li></ul>
+            | <li>Avez-vous déjà menti à votre patron ?</li></ul>
           form(role="form" name="questionForm" ng-submit="boardvm.define(boardvm.question)")
             .form-group
               input.form-control.input-lg(type="text" placeholder="Entrez votre proposition/question fermée"
@@ -29,7 +29,7 @@ section(ng-controller="BoardController as boardvm")
           .question(ng-show="boardvm.showQuestion" ng-bind="boardvm.nextQuestion")
           .answer-form(ng-show="boardvm.showAnswerForm")
             .alert.alert-info(role="alert")
-              | En vous incluant, tentez de deviner le nombre de joueurs susceptibles de répondre <b>OUI</b>
+              | <b>En vous incluant</b>, tentez de deviner le nombre de joueurs susceptibles de répondre <b>OUI</b>
               | puis donnez votre réponse.
             form(role="form" name="boardvm.answerForm")
               .form-group
