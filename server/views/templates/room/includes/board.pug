@@ -7,44 +7,53 @@ section(ng-controller="BoardController as boardvm")
           | {{boardvm.loadingMessage}}
       div(ng-if="!boardvm.isGameStarted")
         .alert.alert-info(role="alert")
-          | Waiting for other players to join the room.<br>
-          | Once the game is started new players <b>will not</b> be able to join.
-        button.btn.btn-success.btn-block(type="button" ng-click="boardvm.startGame()") Start the game
+          | En attente d'autres joueurs.<br>
+          | Une fois la partie lancée, <b>aucun</b> nouveau joueur ne sera en mesure de rejoindre la salle.
+        button.btn.btn-success.btn-block(type="button" ng-click="boardvm.startGame()") Démarrer la partie
       div(ng-if="boardvm.isGameStarted")
         .question-form(ng-show="boardvm.showQuestionForm")
-          .alert.alert-info(role="alert") Other players are waiting for you to choose a question!
+          .alert.alert-info(role="alert")
+            | Les autres joueurs sont en attente de votre proposition !<br>
+            | Définissez une proposition ou une question à laquelle les autres joueurs et vous-même devrez répondre par
+            | <b>OUI</b> ou par <b>NON</b>.<br><br>
+            | Exemples :<br><ul>
+            | <li>Je pense que gPartner a un très bel avenir</li>
+            | <li>Pensez-vous que gPartner ait un très bel avenir ?</li></ul>
           form(role="form" name="questionForm" ng-submit="boardvm.define(boardvm.question)")
             .form-group
-              input.form-control.input-lg(type="text" placeholder="Type your yes/no question"
+              input.form-control.input-lg(type="text" placeholder="Entrez votre proposition/question fermée"
                   ng-model="boardvm.question" required="")
-            button.btn.btn-success.btn-block(type="submit") Define question
+              .help-block Les joueurs devront répondre uniquement par <b>OUI</b> ou par <b>NON</b>
+            button.btn.btn-success.btn-block(type="submit") Continuer
         .question-zone
           .question(ng-show="boardvm.showQuestion" ng-bind="boardvm.nextQuestion")
           .answer-form(ng-show="boardvm.showAnswerForm")
+            .alert.alert-info(role="alert")
+              | En vous incluant, tentez de deviner le nombre de joueurs susceptibles de répondre <b>OUI</b>
+              | puis donnez votre réponse.
             form(role="form" name="boardvm.answerForm")
               .form-group
                 select.form-control(name="yesCountGuess" ng-model="boardvm.yesCountGuess"
                     ng-options="number for number in [] | pvRange:0:vm.room.players.length" required="")
-                  option(value="" disabled="" selected="") #YES Guess
-                .help-block Including yourself, try to guess how many players will answer YES
+                  option(value="" disabled="" selected="") Estimation #OUI
               .answer-buttons
                 .btn-o(role="button" ng-click="boardvm.submitAnswer('YES', boardvm.yesCountGuess)"
                     ng-disabled="boardvm.answerForm.$invalid")
-                  .btn-o-content YES
+                  .btn-o-content OUI
                 .btn-o(role="button" ng-click="boardvm.submitAnswer('NO', boardvm.yesCountGuess)"
                     ng-disabled="boardvm.answerForm.$invalid")
-                  .btn-o-content NO
+                  .btn-o-content NON
           .player-recap.row(ng-show="boardvm.showPlayerRecap")
-            .col-xs-6 Answer: {{boardvm.answerRecap}}
-            .col-xs-6 #YES Guess: {{boardvm.yesCountGuessRecap}}
+            .col-xs-6 Réponse : {{boardvm.answerRecap}}
+            .col-xs-6 Estimation #OUI : {{boardvm.yesCountGuessRecap}}
           .results.panel.panel-primary(ng-show="boardvm.showQuestion")
-            .panel-heading Results
-            .panel-body.final-answer(ng-show="boardvm.results") Right guess: {{boardvm.results.yesCount}}
+            .panel-heading Résultats du tour
+            .panel-body.final-answer(ng-show="boardvm.results") Estimation correcte : {{boardvm.results.yesCount}}
             table.table.table-condensed
               thead
                 tr
-                  th Player
-                  th #YES Guess
+                  th Joueur
+                  th Estimation #OUI
                   th
               tbody
                 tr(ng-repeat="player in vm.room.players" ng-class="{info: boardvm.hasAnswered(player.id)}")
@@ -55,4 +64,4 @@ section(ng-controller="BoardController as boardvm")
                     pv-validation-icon="boardvm.results.details[player.id].correct")
         button.btn.btn-success.btn-block(type="button" ng-show="boardvm.showNextTurn"
             ng-click="boardvm.startNextTurn()")
-          | Start next turn
+          | Commencer le tour suivant

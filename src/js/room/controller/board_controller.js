@@ -9,7 +9,7 @@ export default class BoardController {
 
   submitAnswer(answer, yesCountGuess) {
     this._boardService.submitAnswer({answer, yesCountGuess}).then(() => {
-      this.answerRecap = answer;
+      this.answerRecap = answer === 'YES' ? 'OUI' : 'NON';
       this.answer = null;
       this.yesCountGuessRecap = yesCountGuess;
       this.yesCountGuess = null;
@@ -51,9 +51,9 @@ export default class BoardController {
 
   get loadingMessage() {
     if (this._stateService.state === this._AppStates.WAITING_FOR_PLAYER_SELECTION) {
-      return 'Selecting next player choosing a question...';
+      return 'Sélection du prochain joueur...';
     } else if (this._stateService.state === this._AppStates.WAITING_FOR_QUESTION_DEFINITION) {
-      return `It's ${this.playerSelectedForNextQuestion.username}'s turn to choose a question.`;
+      return `C'est le tour de ${this.playerSelectedForNextQuestion.username} de poser une question.`;
     }
     return '';
   }

@@ -24,11 +24,11 @@ export default class ChatService {
     });
 
     this._socketService.on(this._SocketEvents.ROOM.NEW_PLAYER, player => {
-      this.messages.push({content: `${player.username} has joined the room.`});
+      this.messages.push({content: `${player.username} a rejoint la salle.`});
     });
 
     this._socketService.on(this._SocketEvents.ROOM.PLAYER_LEFT, player => {
-      this.messages.push({content: `${player.username} has left the room.`});
+      this.messages.push({content: `${player.username} a quitté la salle.`});
     });
   }
 }

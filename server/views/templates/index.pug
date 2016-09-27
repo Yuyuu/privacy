@@ -12,19 +12,19 @@ main
               .col-xs-6
                 .form-group(pv-element-validation="landing.join.roomId")
                   input#room.form-control.input-lg(type="text" name="roomId" ng-model="landing.roomId"
-                      placeholder="Room name or ID" required="true")
+                      placeholder="Nom ou ID de la salle" required="true")
               .col-xs-6
                 .form-group(pv-element-validation="landing.join.playerName")
                   input#username.form-control.input-lg(type="text" name="playerName" ng-model="landing.username"
-                      placeholder="Username" required="true")
+                      placeholder="Nom d'utilisateur" required="true")
             .row
               .col-sm-6
                 button.btn.btn-primary-inverse.btn-huge.btn-block(type="button"
                     ng-click="landing.createRoom(landing.roomId, landing.username)" ng-disabled="landing.join.$invalid")
                   i.fa.fa-plus-square-o(aria-hidden="true")
-                  | Create the room
+                  | Créer la salle
               .col-sm-6
                 button.btn.btn-primary-inverse.btn-huge.btn-block(type="button"
                     ng-click="landing.joinRoom(landing.roomId, landing.username)" ng-disabled="landing.join.$invalid")
                   i.fa.fa-sign-in(aria-hidden="true")
-                  | Join the room
+                  | Rejoindre la salle

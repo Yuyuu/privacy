@@ -1,19 +1,19 @@
 .modal-header
-  button.close(type="button" aria-label="Close" ng-click="vm.cancel()")
+  button.close(type="button" aria-label="Fermer" ng-click="vm.cancel()")
     span(aria-hidden="true") &times;
-  h4.modal-title Please define your username
+  h4.modal-title Sélection du nom d'utilisateur
 form.form-horizontal(ng-submit="vm.define(vm.username)")
   .modal-body
     .container-fluid
       .row
         .col-xs-12
           .form-group
-            label.control-label.col-sm-5(for="username") Username
+            label.control-label.col-sm-5(for="username") Nom d'utilisateur
             .col-sm-6
               input#username.form-control(type="text" name="username" ng-model="vm.username"
                 placeholder="e.g. Kim" required="" autofocus="")
   .modal-footer
-    button.btn.btn-default.btn-sm(type="button" ng-click="vm.cancel()") Cancel
+    button.btn.btn-default.btn-sm(type="button" ng-click="vm.cancel()") Annuler
     button.btn.btn-primary.btn-sm(type="submit")
       i.fa.fa-check
       | OK
