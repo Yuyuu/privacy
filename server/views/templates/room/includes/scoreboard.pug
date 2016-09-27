@@ -10,6 +10,7 @@
             th Player
             th Score
         tbody
-          tr(ng-repeat="scoreData in scorevm.scores | orderBy:'score':true track by scoreData.playerId")
+          tr(ng-repeat="scoreData in scorevm.scores | orderBy:'score':true track by scoreData.playerId"
+              ng-class="{danger: scorevm.hasLeft(vm.room.players, scoreData.playerId)}")
             th(scope="row" ng-bind="::scoreData.username")
             td(ng-bind="scoreData.score")

@@ -45,6 +45,9 @@ Room.prototype.playerSelectedForNextQuestion = function () {
 };
 
 Room.prototype.remove = function (playerToRemove) {
+  if (this.turnIsPending()) {
+    this.question.drop(playerToRemove);
+  }
   _.remove(this.players, player => player.id === playerToRemove.id);
 };
 
@@ -55,6 +58,10 @@ Room.prototype.startTurn = function () {
 
 Room.prototype.turnIsOver = function () {
   return this.question && this.question.hasCollectedAllAnswers();
+};
+
+Room.prototype.turnIsPending = function () {
+  return this.question && !this.question.hasCollectedAllAnswers();
 };
 
 module.exports = Room;

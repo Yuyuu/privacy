@@ -19,6 +19,11 @@ Question.prototype.answer = function (player, answer) {
   this._synchronizer[player.id] = true;
 };
 
+Question.prototype.drop = function (player) {
+  delete this.answers[player.id];
+  delete this._synchronizer[player.id];
+};
+
 Question.prototype.hasCollectedAllAnswers = function () {
   return _.every(this._synchronizer, synced => synced);
 };

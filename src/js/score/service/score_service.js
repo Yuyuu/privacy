@@ -19,7 +19,7 @@ export default class ScoreService {
     this._socketService.on(this._SocketEvents.GAME.TURN_OVER, results => {
       _.forEach(this.scores, scoreData => {
         let playerResults = results.details[scoreData.playerId];
-        if (playerResults.correct) {
+        if (playerResults && playerResults.correct) {
           scoreData.score += 1;
         }
       });
