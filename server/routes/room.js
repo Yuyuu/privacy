@@ -17,7 +17,12 @@ exports.create = (request, response) => {
 exports.get = (request, response) => {
   let roomId = request.params.id;
   let room = STORE.get(roomId);
-  return room ? response.send(room) : response.status(404).send(buildError('The requested room does not exist'));
+  if (!room) {
+    return response.status(404).send(buildError('The requested room does not exist'));
+  } else if (room.started) {
+    return response.status(422).send(buildError('The game in the requested room has already been started'));
+  }
+  return response.send(room);
 };
 
 function buildError(message) {
