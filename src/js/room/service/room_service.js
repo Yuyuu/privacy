@@ -2,9 +2,11 @@ let _ = require('lodash');
 
 export default class RoomService {
   /* @ngInject */
-  constructor(socketService, SocketEvents, chatService, stateService) {
+  constructor(socketService, SocketEvents, chatService, stateService, boardService, scoreService) {
     this.room = null;
+    this._boardService = boardService;
     this._chatService = chatService;
+    this._scoreService = scoreService;
     this._SocketEvents = SocketEvents;
     this._socketService = socketService;
     this._stateService = stateService;
@@ -23,7 +25,10 @@ export default class RoomService {
   leaveRoom() {
     return this._socketService.promisifyEmit(this._SocketEvents.ROOM.LEAVE).then(() => {
       this.room = null;
+      this._scoreService.reset();
+      this._boardService.reset();
       this._chatService.clearMessages();
+      this._stateService.reset();
     });
   }
 

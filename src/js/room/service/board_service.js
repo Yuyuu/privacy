@@ -22,6 +22,12 @@ export default class BoardService {
     return this._socketService.promisifyEmit(this._SocketEvents.QUESTION.DEFINED, question);
   }
 
+  reset() {
+    this.playerSelectedForNextQuestion = null;
+    this.question = null;
+    this.waitingPlayersIds = [];
+  }
+
   startGame() {
     return this._socketService.promisifyEmit(this._SocketEvents.GAME.START);
   }

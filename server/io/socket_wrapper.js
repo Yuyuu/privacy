@@ -22,10 +22,13 @@ class SocketWrapper {
     questionDefinedListener.register(socket, this._io);
     newAnswerListener.register(socket, this._io);
 
-    socket.on(EVENTS.ROOM.LEAVE, _remove);
-    socket.on(EVENTS.SOCKET.DISCONNECTION, _remove);
+    socket.on(EVENTS.ROOM.LEAVE, (data, callback) => {
+      cleanUp();
+      callback({success: true});
+    });
+    socket.on(EVENTS.SOCKET.DISCONNECTION, cleanUp);
 
-    function _remove() {
+    function cleanUp() {
       let room = socket.handshake.session.room;
       if (room) {
         let player = socket.handshake.session.player;
