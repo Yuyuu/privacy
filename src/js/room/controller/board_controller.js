@@ -53,7 +53,7 @@ export default class BoardController {
     if (this._stateService.state === this._AppStates.WAITING_FOR_PLAYER_SELECTION) {
       return 'Sélection du prochain joueur...';
     } else if (this._stateService.state === this._AppStates.WAITING_FOR_QUESTION_DEFINITION) {
-      return `C'est le tour de ${this.playerSelectedForNextQuestion.username} de poser une question.`;
+      return `C'est au tour de ${this.playerSelectedForNextQuestion.username} de poser une question.`;
     }
     return '';
   }
