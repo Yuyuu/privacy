@@ -37,10 +37,10 @@ section(ng-controller="BoardController as boardvm")
                     ng-options="number for number in [] | pvRange:0:vm.room.players.length" required="")
                   option(value="" disabled="" selected="") Estimation #OUI
               .answer-buttons
-                .btn-o(role="button" ng-click="boardvm.submitAnswer('YES', boardvm.yesCountGuess)"
+                button.btn-o(type="button" ng-click="boardvm.submitAnswer('YES', boardvm.yesCountGuess)"
                     ng-disabled="boardvm.answerForm.$invalid")
                   .btn-o-content OUI
-                .btn-o(role="button" ng-click="boardvm.submitAnswer('NO', boardvm.yesCountGuess)"
+                button.btn-o(type="button" ng-click="boardvm.submitAnswer('NO', boardvm.yesCountGuess)"
                     ng-disabled="boardvm.answerForm.$invalid")
                   .btn-o-content NON
           .player-recap.row(ng-show="boardvm.showPlayerRecap")
