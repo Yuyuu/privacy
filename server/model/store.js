@@ -1,27 +1,26 @@
 'use strict';
 
 let _ = require('lodash');
-const STORE = new Store();
 
-function Store() {
-  this.rooms = {};
+class Store {
+  constructor() {
+    this.rooms = {};
+  }
+
+  add(room) {
+    this.rooms[room.id] = room;
+  }
+
+  get(roomId) {
+    return this.rooms[roomId];
+  }
+
+  remove(room) {
+    delete this.rooms[room.id];
+  }
 }
 
-Store.prototype.add = function (room) {
-  this.rooms[room.id] = room;
-};
-
-Store.prototype.delete = function (room) {
-  delete this.rooms[room.id];
-};
-
-Store.prototype.get = function (roomId) {
-  return this.rooms[roomId];
-};
-
-Store.prototype.remove = function (room) {
-  delete this.rooms[room.id];
-};
+const STORE = new Store();
 
 function flushEmptyRooms() {
   _.forEach(STORE.rooms, room => {

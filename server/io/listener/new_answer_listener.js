@@ -12,7 +12,7 @@ exports.register = (socket, io) => {
     room.question.answer(player, answer);
     callback({success: true});
     socket.broadcast.to(room.id).emit(EVENTS.ANSWER.GIVEN, player);
-    if (room.turnIsOver()) {
+    if (room.turnIsOver) {
       io.to(room.id).emit(EVENTS.GAME.TURN_OVER, room.questionResults());
       room.endTurn();
     }
