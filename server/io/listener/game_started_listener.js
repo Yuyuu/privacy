@@ -10,7 +10,8 @@ exports.register = (socket, io) => {
       room.startTurn();
       callback({success: true});
       io.to(room.id).emit(EVENTS.GAME.STARTED, room);
-      io.to(room.id).emit(EVENTS.QUESTION.SETUP, room.playerSelectedForNextQuestion());
+      room.playerAwaitedForQuestion = room.selectPlayerForNextQuestion();
+      io.to(room.id).emit(EVENTS.QUESTION.SETUP, room.playerAwaitedForQuestion);
     } else {
       callback({success: false});
     }

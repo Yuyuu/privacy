@@ -8,7 +8,8 @@ exports.register = (socket, io) => {
     if (!room.turnStarted) {
       room.startTurn();
       callback({success: true});
-      io.to(room.id).emit(EVENTS.QUESTION.SETUP, room.playerSelectedForNextQuestion());
+      room.playerAwaitedForQuestion = room.selectPlayerForNextQuestion();
+      io.to(room.id).emit(EVENTS.QUESTION.SETUP, room.playerAwaitedForQuestion);
     } else {
       callback({success: false});
     }

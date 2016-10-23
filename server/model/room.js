@@ -15,6 +15,7 @@ class Room {
     this.turn = 0;
     this.turnStarted = false;
     this.question = null;
+    this.playerAwaitedForQuestion = null;
   }
 
   add(player) {
@@ -45,7 +46,7 @@ class Room {
     return this.players.length === 0;
   }
 
-  playerSelectedForNextQuestion() {
+  selectPlayerForNextQuestion() {
     let nextPlayerIndex = (this.turn - 1) % this.players.length;
     return this.players[nextPlayerIndex];
   }

@@ -57,6 +57,10 @@ class SocketWrapper {
           room.dealer = room.players[0];
           wrapper._io.to(room.id).emit(EVENTS.ROOM.DEALER_CHANGED, room.dealer);
         }
+        if (room.playerAwaitedForQuestion && room.playerAwaitedForQuestion.id === player.id) {
+          room.playerAwaitedForQuestion = room.selectPlayerForNextQuestion();
+          wrapper._io.to(room.id).emit(EVENTS.QUESTION.SETUP, room.playerAwaitedForQuestion);
+        }
       }
     }
   }
