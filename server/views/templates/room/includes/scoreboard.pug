@@ -11,11 +11,12 @@
             i.fa.fa-star
           span(ng-bind="::player.username")
     .table-responsive(ng-show="scorevm.gameStarted")
+      .score-title Scores
       table.table.table-condensed
         thead
           tr
             th Joueur
-            th Score
+            th
         tbody
           tr(ng-repeat="scoreData in scorevm.scores | orderBy:'score':true track by scoreData.player.id"
               ng-class="{danger: scorevm.hasLeft(vm.room.players, scoreData.player.id)}")

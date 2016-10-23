@@ -1,9 +1,10 @@
 export default class BoardController {
   /* @ngInject */
-  constructor(boardService, playerService, stateService, AppStates) {
+  constructor(boardService, playerService, stateService, resultsService, AppStates) {
     this._AppStates = AppStates;
     this._boardService = boardService;
     this._playerService = playerService;
+    this._resultsService = resultsService;
     this._stateService = stateService;
   }
 
@@ -67,7 +68,7 @@ export default class BoardController {
   }
 
   get results() {
-    return this._boardService.results;
+    return this._resultsService.results;
   }
 
   get showAnswerForm() {

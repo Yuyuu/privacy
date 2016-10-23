@@ -24,3 +24,14 @@
     .box-shadow(none);
   }
 }
+
+.separator-title(@color: @text-color) {
+  border-top: 2px solid @color;
+  border-bottom: 2px solid @color;
+  text-align: center;
+  background-color: lighten(@color, 45%);
+  color: @color;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  margin-bottom: 1em;
+}

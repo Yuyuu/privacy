@@ -62,8 +62,7 @@ section(ng-controller="BoardController as boardvm")
                   td(ng-bind="boardvm.results.details[player.id].yesCountGuess")
                   td
                     i.fa(aria-hidden="true" ng-show="boardvm.results"
-                    pv-validation-icon="boardvm.results.details[player.id].correct")
-          div(ng-if="vm.currentUserIsDealer")
-            button.btn.btn-success.btn-block(type="button" ng-show="boardvm.showNextTurn"
-                ng-click="boardvm.startNextTurn()")
-              | Commencer le tour suivant
+                        pv-validation-icon="boardvm.results.details[player.id].correct")
+          button.btn.btn-success.btn-block(type="button" ng-show="boardvm.showNextTurn"
+              ng-click="boardvm.startNextTurn()")
+            | Commencer le tour suivant

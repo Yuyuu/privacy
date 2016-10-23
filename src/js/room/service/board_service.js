@@ -40,7 +40,6 @@ export default class BoardService {
     this._socketService.on(this._SocketEvents.QUESTION.SETUP, player => {
       this.question = null;
       this.waitingPlayersIds = [];
-      this.results = null;
       this.playerSelectedForNextQuestion = player;
       this._stateService.playerDefined();
     });
@@ -55,8 +54,7 @@ export default class BoardService {
       this.waitingPlayersIds.push(player.id);
     });
 
-    this._socketService.on(this._SocketEvents.GAME.TURN_OVER, results => {
-      this.results = results;
+    this._socketService.on(this._SocketEvents.GAME.TURN_OVER, () => {
       this._stateService.turnOver();
     });
   }
