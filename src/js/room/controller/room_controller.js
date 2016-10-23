@@ -1,12 +1,8 @@
 export default class RoomController {
   /* @ngInject */
-  constructor($scope, roomService, playerService) {
+  constructor(roomService, playerService) {
     this._playerService = playerService;
     this._roomService = roomService;
-
-    $scope.$on('$destroy', () => {
-      this._roomService.leaveRoom();
-    });
   }
 
   isCurrentPlayer(player) {
@@ -18,7 +14,7 @@ export default class RoomController {
   }
 
   get currentUserIsDealer() {
-    if (this._roomService.room.dealer && this._playerService.player) {
+    if (this._roomService.room && this._roomService.room.dealer && this._playerService.player) {
       return this._roomService.room.dealer.id === this._playerService.player.id;
     }
     return false;

@@ -29,21 +29,22 @@ export default function () {
         /* @ngInject */
         onEnter: onEnter,
         /* @ngInject */
-        onExit: roomService => roomService.leaveRoom()
+        onExit: (roomService, playerService) => roomService.leaveRoom().then(() => {
+          playerService.joinedGame = false;
+        })
       });
     $urlRouterProvider.when('', '/i');
   }
 }
 
 function onEnter($stateParams, roomService, playerService, $uibModal, $q) {
-  return ensureUsernameIsDefined(playerService, $uibModal, $q)
-    .then(username => roomService.joinRoom({
-      roomId: $stateParams.id,
-      username: username
-    }))
+  return roomService.joinRoom($stateParams.id)
+    .then(() => ensureUsernameIsDefined(playerService, $uibModal, $q))
+    .then(username => roomService.joinGame(username))
     .then(result => {
       playerService.player = result.player;
-      return result.room;
+      playerService.joinedGame = true;
+      return roomService.room;
     });
 }
 

@@ -39,7 +39,7 @@ export default class BoardController {
   }
 
   get isUserSelectedForNextQuestion() {
-    return this.playerSelectedForNextQuestion &&
+    return this.playerSelectedForNextQuestion && this._playerService.player &&
       this._playerService.player.id === this.playerSelectedForNextQuestion.id;
   }
 

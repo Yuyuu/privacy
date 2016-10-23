@@ -1,6 +1,7 @@
 'use strict';
 
 let roomJoinedListener = require('./listener/room_joined_listener');
+let gameJoinedListener = require('./listener/game_joined_listener');
 let chatMessageListener = require('./listener/chat_message_listener');
 let gameStartedListener = require('./listener/game_started_listener');
 let turnOverListener = require('./listener/turn_over_listener');
@@ -17,7 +18,8 @@ class SocketWrapper {
 
   wrap(socket) {
     let wrapper = this;
-    roomJoinedListener.register(socket, this._io);
+    roomJoinedListener.register(socket);
+    gameJoinedListener.register(socket, this._io);
     chatMessageListener.register(socket);
     gameStartedListener.register(socket, this._io);
     turnOverListener.register(socket, this._io);
@@ -26,8 +28,17 @@ class SocketWrapper {
     newDealerListener.register(socket, this._io);
 
     socket.on(EVENTS.ROOM.LEAVE, (data, callback) => {
-      cleanUp();
-      callback({success: true});
+      let room = socket.handshake.session.room;
+      if (room) {
+        socket.leave(room.id, error => {
+          if (error) {
+            callback({success: false, reason: 'An error occurred while trying to leave the room'});
+          } else {
+            cleanUp();
+            callback({success: true});
+          }
+        });
+      }
     });
     socket.on(EVENTS.SOCKET.DISCONNECTION, cleanUp);
 
@@ -36,12 +47,16 @@ class SocketWrapper {
       if (!room) {
         return;
       }
+      socket.handshake.session.room = null;
       let player = socket.handshake.session.player;
-      room.remove(player);
-      socket.broadcast.to(room.id).emit(EVENTS.ROOM.PLAYER_LEFT, player);
-      if (room.isDealer(player) && !room.empty) {
-        room.dealer = room.players[0];
-        wrapper._io.to(room.id).emit(EVENTS.ROOM.DEALER_CHANGED, room.dealer);
+      if (player) {
+        room.remove(player);
+        socket.handshake.session.player = null;
+        socket.broadcast.to(room.id).emit(EVENTS.ROOM.PLAYER_LEFT, player);
+        if (room.isDealer(player) && !room.empty) {
+          room.dealer = room.players[0];
+          wrapper._io.to(room.id).emit(EVENTS.ROOM.DEALER_CHANGED, room.dealer);
+        }
       }
     }
   }

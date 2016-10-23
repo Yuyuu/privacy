@@ -17,6 +17,7 @@ module.exports = {
     NEW_MESSAGE: 'pv:chat:newmessage'
   },
   GAME: {
+    JOIN: 'pv:game:join',
     START: 'pv:game:start',
     STARTED: 'pv:game:started',
     TURN_OVER: 'pv:game:turnover',

@@ -14,17 +14,20 @@ export default class RoomService {
     this._setupEventListeners();
   }
 
-  joinRoom(configuration) {
-    return this._socketService.promisifyEmit(this._SocketEvents.ROOM.JOIN, configuration)
+  joinGame(username) {
+    return this._socketService.promisifyEmit(this._SocketEvents.GAME.JOIN, username)
       .then(result => {
         this.room.players.push(result.player);
         return result;
       });
   }
 
+  joinRoom(roomId) {
+    return this._socketService.promisifyEmit(this._SocketEvents.ROOM.JOIN, roomId);
+  }
+
   leaveRoom() {
     return this._socketService.promisifyEmit(this._SocketEvents.ROOM.LEAVE).then(() => {
-      this.room = null;
       this._scoreService.reset();
       this._boardService.reset();
       this._chatService.clearMessages();
