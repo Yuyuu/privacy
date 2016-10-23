@@ -1,4 +1,5 @@
 export default class PlayerService {
+  /* @ngInject */
   constructor($state, socketService, SocketEvents) {
     this.player = null;
     this.joinedGame = false;
