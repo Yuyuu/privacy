@@ -6,6 +6,7 @@ let gameStartedListener = require('./listener/game_started_listener');
 let turnOverListener = require('./listener/turn_over_listener');
 let questionDefinedListener = require('./listener/question_defined_listener');
 let newAnswerListener = require('./listener/new_answer_listener');
+let newDealerListener = require('./listener/new_dealer_listener');
 
 const EVENTS = require('./events');
 
@@ -15,12 +16,14 @@ class SocketWrapper {
   }
 
   wrap(socket) {
-    roomJoinedListener.register(socket);
+    let wrapper = this;
+    roomJoinedListener.register(socket, this._io);
     chatMessageListener.register(socket);
     gameStartedListener.register(socket, this._io);
     turnOverListener.register(socket, this._io);
     questionDefinedListener.register(socket, this._io);
     newAnswerListener.register(socket, this._io);
+    newDealerListener.register(socket, this._io);
 
     socket.on(EVENTS.ROOM.LEAVE, (data, callback) => {
       cleanUp();
@@ -30,10 +33,15 @@ class SocketWrapper {
 
     function cleanUp() {
       let room = socket.handshake.session.room;
-      if (room) {
-        let player = socket.handshake.session.player;
-        room.remove(player);
-        socket.broadcast.to(room.id).emit(EVENTS.ROOM.PLAYER_LEFT, player);
+      if (!room) {
+        return;
+      }
+      let player = socket.handshake.session.player;
+      room.remove(player);
+      socket.broadcast.to(room.id).emit(EVENTS.ROOM.PLAYER_LEFT, player);
+      if (room.isDealer(player) && !room.empty) {
+        room.dealer = room.players[0];
+        wrapper._io.to(room.id).emit(EVENTS.ROOM.DEALER_CHANGED, room.dealer);
       }
     }
   }

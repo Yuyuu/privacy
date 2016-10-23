@@ -9,7 +9,9 @@ module.exports = {
     JOIN: 'pv:room:join',
     LEAVE: 'pv:room:leave',
     NEW_PLAYER: 'pv:room:newplayer',
-    PLAYER_LEFT: 'pv:room:playerleft'
+    PLAYER_LEFT: 'pv:room:playerleft',
+    NEW_DEALER: 'pv:room:newdealer',
+    DEALER_CHANGED: 'pv:room:dealerchanged'
   },
   CHAT: {
     NEW_MESSAGE: 'pv:chat:newmessage'

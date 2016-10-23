@@ -35,8 +35,8 @@ export default function () {
   }
 }
 
-function onEnter($stateParams, roomService, playerService, $modal, $q) {
-  return ensureUsernameIsDefined(playerService, $modal, $q)
+function onEnter($stateParams, roomService, playerService, $uibModal, $q) {
+  return ensureUsernameIsDefined(playerService, $uibModal, $q)
     .then(username => roomService.joinRoom({
       roomId: $stateParams.id,
       username: username
@@ -47,9 +47,9 @@ function onEnter($stateParams, roomService, playerService, $modal, $q) {
     });
 }
 
-function ensureUsernameIsDefined(playerService, $modal, $q) {
+function ensureUsernameIsDefined(playerService, $uibModal, $q) {
   if (!playerService.player) {
-    let modalInstance = $modal.open({
+    let modalInstance = $uibModal.open({
       templateUrl: 'defineUsername.html',
       controller: 'DefineUsernameController',
       controllerAs: 'vm',

@@ -24,7 +24,7 @@ const STORE = new Store();
 
 function flushEmptyRooms() {
   _.forEach(STORE.rooms, room => {
-    if (room.isEmpty()) {
+    if (room.empty) {
       STORE.remove(room);
     }
   });

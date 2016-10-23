@@ -1,8 +1,15 @@
 .row
   .score-zone(ng-controller="ScoreController as scorevm")
     .table-responsive(ng-if="!scorevm.gameStarted")
-      ul.list-group
-        li.list-group-item(ng-repeat="player in vm.room.players track by player.id" ng-bind="::player.username")
+      ul.list-group.overflow-ellipsis
+        li.list-group-item(ng-repeat="player in vm.room.players track by player.id")
+          span.label.label-default.dealer-label(ng-if="vm.room.dealer.id === player.id")
+            i.fa.fa-star
+            | &nbsp;Dealer
+          button.btn.btn-default.btn-xs.btn-icon.margin-rt-5(type="button" title="Désigner comme dealer"
+              ng-if="vm.currentUserIsDealer && !vm.isCurrentPlayer(player)" ng-click="vm.designateDealer(player)")
+            i.fa.fa-star
+          span(ng-bind="::player.username")
     .table-responsive(ng-show="scorevm.gameStarted")
       table.table.table-condensed
         thead
@@ -10,7 +17,15 @@
             th Joueur
             th Score
         tbody
-          tr(ng-repeat="scoreData in scorevm.scores | orderBy:'score':true track by scoreData.playerId"
-              ng-class="{danger: scorevm.hasLeft(vm.room.players, scoreData.playerId)}")
-            th(scope="row" ng-bind="::scoreData.username")
+          tr(ng-repeat="scoreData in scorevm.scores | orderBy:'score':true track by scoreData.player.id"
+              ng-class="{danger: scorevm.hasLeft(vm.room.players, scoreData.player.id)}")
+            th(scope="row")
+              span.label.label-default.dealer-label(ng-if="vm.room.dealer.id === scoreData.player.id")
+                i.fa.fa-star
+                | &nbsp;Dealer
+              button.btn.btn-default.btn-xs.btn-icon.margin-rt-5(type="button" title="Désigner comme dealer"
+                  ng-if="vm.currentUserIsDealer && !vm.isCurrentPlayer(scoreData.player) && !scorevm.hasLeft(vm.room.players, scoreData.player.id)"
+                  ng-click="vm.designateDealer(scoreData.player)")
+                i.fa.fa-star
+              span(ng-bind="scoreData.player.username")
             td(ng-bind="scoreData.score")

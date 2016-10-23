@@ -30,5 +30,9 @@ export default class ChatService {
     this._socketService.on(this._SocketEvents.ROOM.PLAYER_LEFT, player => {
       this.messages.push({content: `${player.username} a quitté la salle.`});
     });
+
+    this._socketService.on(this._SocketEvents.ROOM.DEALER_CHANGED, dealer => {
+      this.messages.push({content: `${dealer.username} est maintenant dealer.`});
+    });
   }
 }

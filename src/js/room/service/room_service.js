@@ -32,6 +32,10 @@ export default class RoomService {
     });
   }
 
+  designateDealer(player) {
+    return this._socketService.promisifyEmit(this._SocketEvents.ROOM.NEW_DEALER, player);
+  }
+
   _setupEventListeners() {
     this._socketService.on(this._SocketEvents.ROOM.NEW_PLAYER, player => {
       this.room.players.push(player);
@@ -39,6 +43,10 @@ export default class RoomService {
 
     this._socketService.on(this._SocketEvents.ROOM.PLAYER_LEFT, formerPlayer => {
       _.remove(this.room.players, player => player.id === formerPlayer.id);
+    });
+
+    this._socketService.on(this._SocketEvents.ROOM.DEALER_CHANGED, dealer => {
+      this.room.dealer = dealer;
     });
 
     this._socketService.on(this._SocketEvents.GAME.STARTED, () => {

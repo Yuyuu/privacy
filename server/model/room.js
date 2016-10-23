@@ -10,6 +10,7 @@ class Room {
     this.id = shortId.generate();
     this.name = name;
     this.players = [];
+    this.dealer = null;
     this.started = false;
     this.turn = 0;
     this.turnStarted = false;
@@ -36,7 +37,11 @@ class Room {
     this.turnStarted = false;
   }
 
-  isEmpty() {
+  isDealer(player) {
+    return this.dealer && this.dealer.id === player.id;
+  }
+
+  get empty() {
     return this.players.length === 0;
   }
 

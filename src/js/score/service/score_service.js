@@ -17,7 +17,7 @@ export default class ScoreService {
 
   _setupEventListeners() {
     this._socketService.on(this._SocketEvents.GAME.STARTED, room => {
-      _.forEach(room.players, player => this.scores.push({playerId: player.id, username: player.username, score: 0}));
+      _.forEach(room.players, player => this.scores.push({player: player, score: 0}));
     });
 
     this._socketService.on(this._SocketEvents.GAME.TURN_OVER, results => {
