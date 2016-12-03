@@ -10,7 +10,6 @@ let newAnswerListener = require('./listener/new_answer_listener');
 let newDealerListener = require('./listener/new_dealer_listener');
 
 const EVENTS = require('./events');
-const STATES = require('../model/states');
 
 class SocketWrapper {
   constructor(io) {
