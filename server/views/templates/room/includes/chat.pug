@@ -8,4 +8,4 @@
             span.message-content(ng-bind="::message.content")
       .write-box
         form(role="form" name="messageForm" ng-submit="chatvm.send(chatvm.message)")
-          input.form-control(type="text" placeholder="Envoyer un message" ng-model="chatvm.message")
+          input.form-control(type="text" maxlength="150" placeholder="Envoyer un message" ng-model="chatvm.message")
