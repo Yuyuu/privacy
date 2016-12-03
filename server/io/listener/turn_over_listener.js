@@ -11,6 +11,7 @@ exports.register = (socket, io) => {
       room.state = STATES.WAITING_FOR_PLAYER_SELECTION;
       callback({success: true});
       room.playerAwaitedForQuestion = room.selectPlayerForNextQuestion();
+      room.state = STATES.WAITING_FOR_QUESTION_DEFINITION;
       io.to(room.id).emit(EVENTS.QUESTION.SETUP, room.playerAwaitedForQuestion);
     } else {
       callback({success: false});

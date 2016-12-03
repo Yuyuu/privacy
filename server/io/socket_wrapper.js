@@ -59,7 +59,6 @@ class SocketWrapper {
           wrapper._io.to(room.id).emit(EVENTS.ROOM.DEALER_CHANGED, room.dealer);
         }
         if (room.turnIsOver) {
-          room.state = STATES.WAITING_FOR_NEXT_TURN;
           wrapper._io.to(room.id).emit(EVENTS.GAME.TURN_OVER, room.questionResults());
           room.endTurn();
         }
