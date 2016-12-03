@@ -1,15 +1,9 @@
-import _ from 'lodash';
-
 export default class ScoreController {
   /* @ngInject */
   constructor(scoreService, stateService, AppStates) {
     this._AppStates = AppStates;
     this._scoreService = scoreService;
     this._stateService = stateService;
-  }
-
-  hasLeft(players, playerId) {
-    return _.every(players, player => player.id !== playerId);
   }
 
   get gameStarted() {

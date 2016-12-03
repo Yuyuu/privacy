@@ -18,15 +18,14 @@
             th Joueur
             th
         tbody
-          tr(ng-repeat="scoreData in scorevm.scores | orderBy:'score':true track by scoreData.player.id"
-              ng-class="{danger: scorevm.hasLeft(vm.room.players, scoreData.player.id)}")
+          tr(ng-repeat="scoreData in scorevm.scores | orderBy:'score':true track by scoreData.player.id")
             th(scope="row")
               span.label.label-default.dealer-label(ng-if="vm.room.dealer.id === scoreData.player.id")
                 i.fa.fa-star
                 | &nbsp;Dealer
               button.btn.btn-default.btn-xs.btn-icon.margin-rt-5(type="button" title="Désigner comme dealer"
-                  ng-if="vm.currentUserIsDealer && !vm.isCurrentPlayer(scoreData.player) && !scorevm.hasLeft(vm.room.players, scoreData.player.id)"
+                  ng-if="vm.currentUserIsDealer && !vm.isCurrentPlayer(scoreData.player)"
                   ng-click="vm.designateDealer(scoreData.player)")
                 i.fa.fa-star
-              span(ng-bind="scoreData.player.username")
+              span(ng-bind="::scoreData.player.username")
             td(ng-bind="scoreData.score")

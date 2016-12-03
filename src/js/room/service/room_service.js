@@ -17,13 +17,25 @@ export default class RoomService {
   joinGame(username) {
     return this._socketService.promisifyEmit(this._SocketEvents.GAME.JOIN, username)
       .then(result => {
-        this.room.players.push(result.player);
+        let player = result.player;
+        this.room.players.push(player);
+        if (this.room.started) {
+          this._scoreService.add(player);
+        }
         return result;
       });
   }
 
   joinRoom(roomId) {
-    return this._socketService.promisifyEmit(this._SocketEvents.ROOM.JOIN, roomId);
+    return this._socketService.promisifyEmit(this._SocketEvents.ROOM.JOIN, roomId).then(result => {
+      let room = result.room;
+      if (room.started) {
+        this._stateService.state = room.state;
+        this._boardService.question = room.question;
+        this._boardService.initialize(room);
+        this._scoreService.initialize(room.players);
+      }
+    });
   }
 
   leaveRoom() {
@@ -31,7 +43,6 @@ export default class RoomService {
       this._scoreService.reset();
       this._boardService.reset();
       this._chatService.clearMessages();
-      this._stateService.reset();
     });
   }
 
@@ -54,7 +65,6 @@ export default class RoomService {
 
     this._socketService.on(this._SocketEvents.GAME.STARTED, () => {
       this.room.started = true;
-      this._stateService.gameStarted();
     });
   }
 }

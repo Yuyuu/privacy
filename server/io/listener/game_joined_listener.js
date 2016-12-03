@@ -12,10 +12,6 @@ exports.register = (socket, io) => {
       callback({success: false, reason: 'The requested room does not exist'});
       return;
     }
-    if (room.started) {
-      callback({success: false, reason: 'The game in the requested room has already started'});
-      return;
-    }
     let player = socket.handshake.session.player;
     if (!player) {
       player = new Player(username, socket.id);

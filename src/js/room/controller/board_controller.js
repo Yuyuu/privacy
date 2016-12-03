@@ -35,6 +35,10 @@ export default class BoardController {
     this._boardService.startGame();
   }
 
+  get _currentPlayerHasAnswered() {
+    return this._playerService.player && this.waitingPlayersIds.indexOf(this._playerService.player.id) !== -1;
+  }
+
   get isGameStarted() {
     return this._stateService.state !== this._AppStates.WAITING_FOR_GAME_TO_START;
   }
@@ -53,7 +57,8 @@ export default class BoardController {
   get loadingMessage() {
     if (this._stateService.state === this._AppStates.WAITING_FOR_PLAYER_SELECTION) {
       return 'Sélection du prochain joueur...';
-    } else if (this._stateService.state === this._AppStates.WAITING_FOR_QUESTION_DEFINITION) {
+    } else if (this.playerSelectedForNextQuestion &&
+      this._stateService.state === this._AppStates.WAITING_FOR_QUESTION_DEFINITION) {
       return `C'est au tour de ${this.playerSelectedForNextQuestion.username} de poser une question.`;
     }
     return '';
@@ -73,7 +78,7 @@ export default class BoardController {
 
   get showAnswerForm() {
     return this._stateService.state === this._AppStates.WAITING_FOR_ALL_ANSWERS &&
-      this.waitingPlayersIds.indexOf(this._playerService.player.id) === -1;
+      this._boardService.currentPlayerIsIncludedInQuestion && !this._currentPlayerHasAnswered;
   }
 
   get showNextTurn() {
@@ -83,7 +88,7 @@ export default class BoardController {
   get showPlayerRecap() {
     return this._stateService.state === this._AppStates.WAITING_FOR_NEXT_TURN ||
       this._stateService.state === this._AppStates.WAITING_FOR_ALL_ANSWERS &&
-      this.waitingPlayersIds.indexOf(this._playerService.player.id) !== -1;
+      this._boardService.currentPlayerIsIncludedInQuestion && this._currentPlayerHasAnswered;
   }
 
   get showQuestion() {

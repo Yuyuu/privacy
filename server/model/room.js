@@ -4,12 +4,14 @@ let _ = require('lodash');
 let shortId = require('shortid');
 
 let Question = require('./question');
+const STATES = require('./states');
 
 class Room {
   constructor(name) {
     this.id = shortId.generate();
     this.name = name;
     this.players = [];
+    this.state = STATES.WAITING_FOR_GAME_TO_START;
     this.dealer = null;
     this.started = false;
     this.turn = 0;
@@ -34,7 +36,6 @@ class Room {
   }
 
   endTurn() {
-    this.question = null;
     this.turnStarted = false;
   }
 

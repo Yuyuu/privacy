@@ -1,6 +1,7 @@
 .row
   .history-zone(ng-controller="LastTurnController as lastturnvm" ng-show="lastturnvm.results")
     .history-title Résultats du tour précédent
+    .history-question.margin-btm-1(ng-bind="::lastturnvm.results.question")
     .history-estimate Estimation correcte : {{lastturnvm.results.yesCount}}
     table.table.table-condensed
       thead
@@ -9,9 +10,9 @@
           th Est. #OUI
           th
       tbody
-        tr(ng-repeat="player in vm.room.players")
-          th(scope="row" ng-bind="::player.username")
-          td(ng-bind="lastturnvm.results.details[player.id].yesCountGuess")
+        tr(ng-repeat="result in lastturnvm.results.details")
+          th(scope="row" ng-bind="::result.player.username")
+          td(ng-bind="result.yesCountGuess")
           td
             i.fa(aria-hidden="true" ng-show="lastturnvm.results"
-                pv-validation-icon="lastturnvm.results.details[player.id].correct")
+                pv-validation-icon="result.correct")

@@ -8,7 +8,6 @@ section(ng-controller="BoardController as boardvm")
       div(ng-if="!boardvm.isGameStarted")
         .alert.alert-info(role="alert")
           | En attente d'autres joueurs. Seul le dealer peut démarrer la partie.<br>
-          | Une fois la partie lancée, <b>aucun</b> nouveau joueur ne sera en mesure de rejoindre la salle.
         button.btn.btn-success.btn-block(type="button" ng-if="vm.currentUserIsDealer" ng-click="boardvm.startGame()")
           | Démarrer la partie
       div(ng-if="boardvm.isGameStarted")
@@ -27,7 +26,7 @@ section(ng-controller="BoardController as boardvm")
               .help-block Les joueurs devront répondre uniquement par <b>OUI</b> ou par <b>NON</b>
             button.btn.btn-success.btn-block(type="submit") Continuer
         .question-zone
-          .question(ng-show="boardvm.showQuestion" ng-bind="boardvm.nextQuestion")
+          .question(ng-show="boardvm.showQuestion" ng-bind="boardvm.nextQuestion.question")
           .answer-form(ng-show="boardvm.showAnswerForm")
             .alert.alert-info(role="alert")
               | <b>En vous incluant</b>, tentez de deviner le nombre de joueurs susceptibles de répondre <b>OUI</b>
@@ -35,7 +34,7 @@ section(ng-controller="BoardController as boardvm")
             form(role="form" name="boardvm.answerForm")
               .form-group
                 select.form-control(name="yesCountGuess" ng-model="boardvm.yesCountGuess"
-                    ng-options="number for number in [] | pvRange:0:vm.room.players.length" required="")
+                    ng-options="number for number in [] | pvRange:0:boardvm.nextQuestion.players.length" required="")
                   option(value="" disabled="" selected="") Estimation #OUI
               .answer-buttons
                 button.btn-o(type="button" ng-click="boardvm.submitAnswer('YES', boardvm.yesCountGuess)"
@@ -57,7 +56,7 @@ section(ng-controller="BoardController as boardvm")
                   th Estimation #OUI
                   th
               tbody
-                tr(ng-repeat="player in vm.room.players" ng-class="{info: boardvm.hasAnswered(player.id)}")
+                tr(ng-repeat="player in boardvm.nextQuestion.players" ng-class="{info: boardvm.hasAnswered(player.id)}")
                   th(scope="row" ng-bind="::player.username")
                   td(ng-bind="boardvm.results.details[player.id].yesCountGuess")
                   td

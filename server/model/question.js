@@ -5,7 +5,7 @@ let _ = require('lodash');
 class Question {
   constructor(question, players) {
     this.question = question;
-    this.players = players;
+    this.players = _.clone(players);
     this.answers = {};
 
     this._synchronizer = {};
@@ -20,9 +20,10 @@ class Question {
     this._synchronizer[player.id] = true;
   }
 
-  drop(player) {
-    delete this.answers[player.id];
-    delete this._synchronizer[player.id];
+  drop(playerToDrop) {
+    _.remove(this.players, player => player.id === playerToDrop.id);
+    delete this.answers[playerToDrop.id];
+    delete this._synchronizer[playerToDrop.id];
   }
 
   get hasCollectedAllAnswers() {
@@ -31,9 +32,10 @@ class Question {
 
   get results() {
     let yesCount = _.reduce(this.answers, (sum, answer) => sum + (answer.value === 'YES' ? 1 : 0), 0);
-    let results = {yesCount, details: {}};
+    let results = {question: this.question, yesCount, details: {}};
     _.forEach(this.players, player => {
       results.details[player.id] = {
+        player,
         yesCountGuess: this.answers[player.id].yesCountGuess,
         correct: this.answers[player.id].yesCountGuess === yesCount
       };
