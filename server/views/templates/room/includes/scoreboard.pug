@@ -1,16 +1,15 @@
 .row
   .score-zone(ng-controller="ScoreController as scorevm")
-    .table-responsive(ng-if="!scorevm.gameStarted")
-      ul.list-group.overflow-ellipsis
-        li.list-group-item(ng-repeat="player in vm.room.players track by player.id")
-          span.label.label-default.dealer-label(ng-if="vm.room.dealer.id === player.id")
-            i.fa.fa-star
-            | &nbsp;Dealer
-          button.btn.btn-default.btn-xs.btn-icon.margin-rt-5(type="button" title="Désigner comme dealer"
-              ng-if="vm.currentUserIsDealer && !vm.isCurrentPlayer(player)" ng-click="vm.designateDealer(player)")
-            i.fa.fa-star
-          span(ng-bind="::player.username")
-    .table-responsive(ng-show="scorevm.gameStarted")
+    ul.list-group.overflow-ellipsis(ng-if="!scorevm.gameStarted")
+      li.list-group-item(ng-repeat="player in vm.room.players track by player.id")
+        span.label.label-default.dealer-label(ng-if="vm.room.dealer.id === player.id")
+          i.fa.fa-star
+          | &nbsp;Dealer
+        button.btn.btn-default.btn-xs.btn-icon.margin-rt-5(type="button" title="Désigner comme dealer"
+            ng-if="vm.currentUserIsDealer && !vm.isCurrentPlayer(player)" ng-click="vm.designateDealer(player)")
+          i.fa.fa-star
+        span(ng-bind="::player.username")
+    div(ng-show="scorevm.gameStarted")
       .score-title Scores
       table.table.table-condensed
         thead

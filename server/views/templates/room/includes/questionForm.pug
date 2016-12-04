@@ -1,0 +1,33 @@
+.question-form(ng-show="boardvm.showQuestionForm")
+  .alert.alert-info(role="alert")
+    | Les autres joueurs sont en attente de votre proposition !<br>
+    | Définissez ou choisissez une question à laquelle les autres joueurs et vous-même devrez répondre par
+    | <b>OUI</b> ou par <b>NON</b>.<br><br>
+    | Exemples :<br><ul>
+    | <li>Je pense que Devoteam G Cloud a un très bel avenir</li>
+    | <li>Avez-vous déjà menti à votre patron ?</li></ul>
+  form(role="form" name="questionForm" ng-submit="boardvm.define(boardvm.question)")
+    .form-group
+      input.form-control.input-lg(type="text" placeholder="Entrez votre proposition/question fermée"
+        ng-model="boardvm.question" required="")
+      .help-block Les joueurs devront répondre uniquement par <b>OUI</b> ou par <b>NON</b>
+    button.btn.btn-success.btn-block(type="submit") Continuer
+  .form-divider.text-center
+    span ou
+  .card-zone(ng-controller="CardController as cardvm")
+    .card(ng-show="cardvm.card")
+      .list-group
+        button.card-question.list-group-item(type="button" ng-bind="cardvm.card.yellow.title"
+            ng-click="boardvm.define(cardvm.card.yellow.title)")
+        button.card-question.list-group-item(type="button" ng-bind="cardvm.card.pink.title"
+            ng-click="boardvm.define(cardvm.card.pink.title)")
+        button.card-question.list-group-item(type="button" ng-bind="cardvm.card.green.title"
+            ng-click="boardvm.define(cardvm.card.green.title)")
+        button.card-question.list-group-item(type="button" ng-bind="cardvm.card.red.title"
+            ng-click="boardvm.define(cardvm.card.red.title)")
+        button.card-question.list-group-item(type="button" ng-bind="cardvm.card.blue.title"
+            ng-click="boardvm.define(cardvm.card.blue.title)")
+        button.card-question.list-group-item(type="button" ng-bind="cardvm.card.black.title"
+            ng-click="boardvm.define(cardvm.card.black.title)")
+    button.btn.btn-default.btn-block(type="button" ng-click="cardvm.pickRandomCard()" ng-hide="cardvm.card")
+      | Tirer une carte

@@ -11,20 +11,7 @@ section(ng-controller="BoardController as boardvm")
         button.btn.btn-success.btn-block(type="button" ng-if="vm.currentUserIsDealer" ng-click="boardvm.startGame()")
           | Démarrer la partie
       div(ng-if="boardvm.isGameStarted")
-        .question-form(ng-show="boardvm.showQuestionForm")
-          .alert.alert-info(role="alert")
-            | Les autres joueurs sont en attente de votre proposition !<br>
-            | Définissez une proposition ou une question à laquelle les autres joueurs et vous-même devrez répondre par
-            | <b>OUI</b> ou par <b>NON</b>.<br><br>
-            | Exemples :<br><ul>
-            | <li>Je pense que gPartner a un très bel avenir</li>
-            | <li>Avez-vous déjà menti à votre patron ?</li></ul>
-          form(role="form" name="questionForm" ng-submit="boardvm.define(boardvm.question)")
-            .form-group
-              input.form-control.input-lg(type="text" placeholder="Entrez votre proposition/question fermée"
-                  ng-model="boardvm.question" required="")
-              .help-block Les joueurs devront répondre uniquement par <b>OUI</b> ou par <b>NON</b>
-            button.btn.btn-success.btn-block(type="submit") Continuer
+        include questionForm
         .question-zone
           .question(ng-show="boardvm.showQuestion" ng-bind="boardvm.nextQuestion.question")
           .answer-form(ng-show="boardvm.showAnswerForm")
