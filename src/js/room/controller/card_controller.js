@@ -5,7 +5,12 @@ export default class CardController {
   }
 
   pickRandomCard() {
-    !this.card && this._cardService.getRandomCard();
+    if (!this.card) {
+      this.loading = true;
+      this._cardService.getRandomCard().finally(() => {
+        this.loading = false;
+      });
+    }
   }
 
   get card() {

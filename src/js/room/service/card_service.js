@@ -11,8 +11,9 @@ export default class CardService {
   }
 
   getRandomCard() {
-    this._Cards.getRandom().then(card => {
+    return this._Cards.getRandom().then(card => {
       this.card = card;
+      return card;
     });
   }
 
