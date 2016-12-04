@@ -10,6 +10,7 @@ let newAnswerListener = require('./listener/new_answer_listener');
 let newDealerListener = require('./listener/new_dealer_listener');
 
 const EVENTS = require('./events');
+const STATES = require('../model/states');
 
 class SocketWrapper {
   constructor(io) {
@@ -57,7 +58,7 @@ class SocketWrapper {
           room.dealer = room.players[0];
           wrapper._io.to(room.id).emit(EVENTS.ROOM.DEALER_CHANGED, room.dealer);
         }
-        if (room.turnIsOver) {
+        if (room.state === STATES.WAITING_FOR_ALL_ANSWERS && room.turnIsOver) {
           wrapper._io.to(room.id).emit(EVENTS.GAME.TURN_OVER, room.questionResults());
           room.endTurn();
         }
