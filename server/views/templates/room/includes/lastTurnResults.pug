@@ -12,6 +12,6 @@
       tbody
         tr(ng-repeat="result in lastturnvm.results.details")
           th(scope="row" ng-bind="::result.player.username")
-          td(ng-bind="::result.yesCountGuess")
+          td(ng-bind="result.yesCountGuess")
           td
-            i.fa(aria-hidden="true" ng-show="::lastturnvm.results" pv-validation-icon="result.correct")
+            i.fa(aria-hidden="true" pv-validation-icon="result.correct")
